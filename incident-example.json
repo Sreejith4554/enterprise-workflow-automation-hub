@@ -1,0 +1,11 @@
+{
+  "source": "teams",
+  "external_id": "MSG-2048",
+  "project": "ERP-WAVE-2",
+  "summary": "UAT environment unavailable",
+  "description": "Environment health check failed before planned UAT start.",
+  "type": "blocker",
+  "severity": "high",
+  "owner_email": "workstream.owner@example.com",
+  "due_date": "2026-09-15"
+}

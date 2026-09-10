@@ -1,0 +1,62 @@
+{
+  "solution": "RAID-OPL Intake Blueprint",
+  "type": "portfolio-blueprint-not-direct-import",
+  "trigger": {
+    "connector": "Office 365 Outlook or Teams",
+    "event": "new incident/blocker message"
+  },
+  "steps": [
+    {
+      "order": 1,
+      "action": "Parse JSON",
+      "purpose": "validate contract"
+    },
+    {
+      "order": 2,
+      "action": "Compose idempotency key",
+      "expression": "concat(source, ':', external_id)"
+    },
+    {
+      "order": 3,
+      "action": "Check central tracker",
+      "condition": "idempotency key already exists"
+    },
+    {
+      "order": 4,
+      "action": "Create Jira issue via approved connector/HTTP",
+      "condition": "new valid item"
+    },
+    {
+      "order": 5,
+      "action": "Create or update SharePoint list item",
+      "fields": [
+        "jira_key",
+        "project",
+        "type",
+        "severity",
+        "owner",
+        "due_date",
+        "status"
+      ]
+    },
+    {
+      "order": 6,
+      "action": "Post Teams notification",
+      "condition": "severity in [high,critical]"
+    },
+    {
+      "order": 7,
+      "action": "Write audit record",
+      "fields": [
+        "correlation_id",
+        "timestamp",
+        "result",
+        "system"
+      ]
+    }
+  ],
+  "error_scope": {
+    "retry_policy": "exponential for transient errors",
+    "fallback": "dead-letter SharePoint list + coordinator notification"
+  }
+}
