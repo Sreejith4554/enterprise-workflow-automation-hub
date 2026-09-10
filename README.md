@@ -70,6 +70,3 @@ flowchart LR
 
 For a team processing 80 coordination items per week, replacing four manual handoffs with a single automated workflow can materially reduce duplicate entry and response latency. Any actual savings should be measured in a live environment using baseline handling time, failure rate and reopening rate.
 
-## Suggested interview discussion
-
-A useful way to present this project is: *“I designed the workflow around operational controls rather than around tools. The key design decisions were data validation, idempotency, ownership, traceability and an escalation path. n8n or Power Automate is the execution layer; the business value comes from reducing coordination friction without losing governance.”*
